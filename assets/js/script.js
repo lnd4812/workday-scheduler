@@ -1,170 +1,138 @@
-// use momentum.js to display current date & time under "a simple calendar app..."
+// set variable in which to store appointments
+var appts = {};
 
-// create timeblocks to add to "container"; each should have "hour" on left
-ar tasks = {};
+// use Moment.js to display current date in a div (#displayMoment) 
+var today = moment().format('MMM DD YYYYY - hh:mm a');  
+console.log(today);
 
-var createTask = function(taskText, taskDate, taskList) {
-  // create elements that make up a task item
-  var taskLi = $("<li>").addClass("list-group-item");
-  var taskSpan = $("<span>").addClass("badge badge-primary badge-pill").text(taskDate);
+// set up the variable options for hour
+var hour = ["8:00", "9:00", "10:00,","11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"];
 
-  var taskP = $("<p>").addClass("m-1").text(taskText);
+// set up function to enable appointments to be created
+var createAppt = function(apptText, apptDate) {
+  // create elements that make up appointment
+  var apptLi = $("<li>").addClass("appt-slot-item");
+  var apptP = $("<p>").addClass("m-1").text(apptText);
 
-  // append span and p element to parent li
-  taskLi.append(taskSpan, taskP);
+// append span and p element to parent li
+apptLi.append(apptSpan, apptP);
 
-  // check due date
-  auditTask(taskLi);
+// check due date
+  auditAppt(apptLi);
 
-  // append to ul list on the page
-  $("#list-" + taskList).append(taskLi);
+// append to ul list on the page
+  $("#appt-" + apptDate).append(apptLi);
 };
 
-var loadTasks = function() {
-  tasks = JSON.parse(localStorage.getItem("tasks"));
+// load appointment information saved into local Storage
+var loadAppt = function() {
+  appts = JSON.parse(localStorage.getItem("appts"));
 
-  // if nothing in localStorage, create a new object to track all task status arrays
-  if (!tasks) {
-    tasks = {
-      toDo: [],
-      inProgress: [],
-      inReview: [],
-      done: []
+  // if nothing in localStorage, create a new object to track all appt status arrays
+  if (!appts) {
+    appts = {
+      time: [],
+      location: [],
+      purpose: []
     };
   }
 
   // loop over object properties
-  $.each(tasks, function(list, arr) {
+  $.each(appt, function(list, arr) {
     console.log(list, arr);
     // then loop over sub-array
-    arr.forEach(function(task) {
-      createTask(task.text, task.date, list);
+    arr.forEach(function(appt) {
+      createAppt(appt.text, appt.date, list);
     });
   });
 };
 
-var saveTasks = function() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+var saveAppt = function() {
+  localStorage.setItem("appts", JSON.stringify(appts));
 };
 
-// enable draggable/sortable feature on list-group elements
-$(".card .list-group").sortable({
+// enable draggable/sortable feature on appt-slot elements
+$(".card .appt-slot").sortable({
   // enable dragging across lists
-  connectWith: $(".card .list-group"),
+  connectWith: $(".card .appt-slot"),
   scroll: false,
   tolerance: "pointer",
   helper: "clone",
   activate: function(event, ui) {
     $(this).addClass("dropover");
-    $(".bottom-trash").addClass("bottom-trash-drag");
   },
   deactivate: function(event, ui) {
     $(this).removeClass("dropover");
-    $(".bottom-trash").removeClass("bottom-trash-drag");
   },
   over: function(event) {
     $(this).addClass("dropover-active", event.target);
-     console.log(event);
   },
   out: function(event) {
     $(this).removeClass("dropover-active", event.target);
-
     console.log(event);
   },
   update: function() {
     var tempArr = [];
 
     // loop over current set of children in sortable list
-    $(this)
-      .children()
-      .each(function() {
+    $(this).children().each(function() {
         // save values in temp array
         tempArr.push({
-          text: $(this)
-            .find("p")
-            .text()
-            .trim(),
-          date: $(this)
-            .find("span")
-            .text()
-            .trim()
+          text: $(this).find("p").text().trim(),
+          date: $(this).find("span").text().trim(),
         });
       });
 
     // trim down list's ID to match object property
-    var arrName = $(this)
-      .attr("id")
-      .replace("list-", "");
+    var arrName = $(this).attr("id").replace("list-", "");
 
-    // update array on tasks object and save
-    tasks[arrName] = tempArr;
-    saveTasks();
+    // update array on appts object and save
+    appts[arrName] = tempArr;
+    saveAppts();
   },
   stop: function(event) {
     $(this).removeClass("dropover");
   }
 });
 
-// trash icon can be dropped onto
-$("#trash").droppable({
-  accept: ".card .list-group-item",
-  tolerance: "touch",
-  drop: function(event, ui) {
-    // remove dragged element from the dom
-    ui.draggable.remove();
-
-  },
-  over: function(event, ui) {
-   
-    console.log(ui);
-  },
-  out: function(event, ui) {
-    
-    console.log(ui);
-  }
-});
-
-
 // modal was triggered
-$("#task-form-modal").on("show.bs.modal", function() {
+$("#appt-form-modal").on("show.bs.modal", function() {
   // clear values
-  $("#modalTaskDescription, #modalDueDate").val("");
+  $("#modalapptDescription, #modalDueDate").val("");
 });
 
 // modal is fully visible
-$("#task-form-modal").on("shown.bs.modal", function() {
+$("#appt-form-modal").on("shown.bs.modal", function() {
   // highlight textarea
-  $("#modalTaskDescription").trigger("focus");
+  $("#modalapptDescription").trigger("focus");
 });
 
 // save button if modal was clicked
-$("#task-form-modal .btn-primary").click(function() {
+$("#appt-form-modal .btn-primary").click(function() {
   // get form values
-  var taskText = $("#modalTaskDescription").val();
-  var taskDate = $("#modalDueDate").val();
-
-  if (taskText && taskDate) {
-    createTask(taskText, taskDate, "toDo");
+  var apptText = $("#modalapptDescription").val();
+  var apptDate = $("#modalDueDate").val();
+    
+  if (apptText && apptDate) {
+    createAppt(apptText, apptDate, apptTime[i]);
 
     // close modal
-    $("#task-form-modal").modal("hide");
+    $("#appt-form-modal").modal("hide");
 
-    // save in tasks array
-    tasks.toDo.push({
-      text: taskText,
-      date: taskDate
+    // save in appts array
+    appts.apptTime.push({
+      text: apptText,
+      date: apptDate,
     });
 
-    saveTasks();
+    saveAppts();
   }
 });
 
-// task text was clicked
-$(".list-group").on("click", "p", function() {
+// appt text was clicked
+$(".appt-slot").on("click", "p", function() {
   // get current text of p element
-  var text = $(this)
-    .text()
-    .trim();
+  var text = $(this).text().trim();
 
   // replace p element with a new textarea
   var textInput = $("<textarea>").addClass("form-control").val(text);
@@ -175,47 +143,40 @@ $(".list-group").on("click", "p", function() {
 });
 
 // editable field was un-focused
-$(".list-group").on("blur", "textarea", function() {
+$(".appt-slot").on("blur", "textarea", function() {
   // get current value of textarea
   var text = $(this).val();
 
   // get status type and position in the list
-  var status = $(this)
-    .closest(".list-group")
-    .attr("id")
-    .replace("list-", "");
-  var index = $(this)
-    .closest(".list-group-item")
-    .index();
+  var status = $(this).closest(".appt-slot").attr("id").replace("list-", "");
+  var index = $(this).closest(".appt-slot-item").index();
 
-  // update task in array and re-save to localstorage
-  tasks[status][index].text = text;
-  saveTasks();
+  // update appt in array and re-save to localstorage
+  appts[status][index].text = text;
+  saveAppts();
 
   // recreate p element
-  var taskP = $("<p>")
-    .addClass("m-1")
-    .text(text);
+  var apptP = $("<p>").addClass("m-1").text(text);
 
   // replace textarea with new content
-  $(this).replaceWith(taskP);
+  $(this).replaceWith(apptP);
 });
 
-// due date was clicked
-$(".list-group").on("click", "span", function() {
+// due date/time was clicked
+$(".appt-slot").on("click", "span", function() {
   // get current text
   var date = $(this).text().trim();
-
+ 
   // create new input element
   var dateInput = $("<input>").attr("type", "text").addClass("form-control").val(date);
-
+  
   $(this).replaceWith(dateInput);
 
   // enable jquery ui datepicker
   dateInput.datepicker({
     //minDate: 1,
     onClose: function() {
-      // when calendar is closed, force a "chagne" event o the 'dateInput'
+      // when calendar is closed, force a "change" event on the 'dateInput' & / or timeInput
       $(this).trigger("change");
     }
   });
@@ -224,35 +185,34 @@ $(".list-group").on("click", "span", function() {
   dateInput.trigger("focus");
 });
 
-// value of due date was changed
-$(".list-group").on("change", "input[type='text']", function() {
+// value of due date or time was changed
+$(".appt-slot").on("change", "input[type='text']", function() {
   var date = $(this).val();
 
   // get status type and position in the list
-  var status = $(this).closest(".list-group").attr("id").replace("list-", "");
-  var index = $(this).closest(".list-group-item").index();
+  var status = $(this).closest(".appt-slot").attr("id").replace("list-", "");
+  var index = $(this).closest(".appt-slot-item").index();
 
-  // update task in array and re-save to localstorage
-  tasks[status][index].date = date;
-  saveTasks();
+  // update appt in array and re-save to localstorage
+  appts[status][index].date = date;
+  saveAppts();
 
   // recreate span and insert in place of input element
-  var taskSpan = $("<span>").addClass("badge badge-primary badge-pill").text(date);
-    $(this).replaceWith(taskSpan);
+  var apptSpan = $("<span>").addClass("badge badge-primary badge-pill").text(date);
+    $(this).replaceWith(apptSpan);
 
-  // Pass task's <li> element into auditTask() to check new due date
-  auditTask($(taskSpan).closest(".list-group-item"));  
+  // Pass appt's <li> element into auditappt() to check new due date
+  auditAppt($(apptSpan).closest(".appt-slot-item"));  
 });
 
-$(" .card .list-group").sortable({
-  connectWith: $(" .card .list-group"),
+$(" .card .appt-slot").sortable({
+  connectWith: $(" .card .appt-slot"),
   scroll: false,
   tolerance: "pointer",
   helper: "clone",
   activate: function(event) {
     $(this).addClass("dropover");
-    $(".bottom-trash").addClass("bottom-trash-drag");
-    console.log("activate", this);
+   
   }, 
   deactivate: function(event) {
     $(this).removeClass("dropover");
@@ -263,47 +223,34 @@ $(" .card .list-group").sortable({
     console.log("over", event.target);
   },
   update: function(event) {
-    // array to store the task data in
+    // array to store the appt data in
     var tempArr = [];
     
     // loop over current set of children
     $(this).children().each(function() {
-      var text = $(this)
-        .find("p")
-        .text()
-        .trim();
+      var text = $(this).find("p").text().trim();
 
-      var date = $(this)
-        .find("span")
-        .text()
-        .trim();
+      var date = $(this).find("span").text().trim();
 
-      // add task data to the temp array as an object
-      tempArr.push({
-        text: text,
-        date: date
-      });  
+      // add appt data to the temp array as an object
+      tempArr.push({text: text,date: date});  
      
     });
 
     // trim down list's ID to match object property
-    var arrName = $(this)
-      .attr("id")
-      .replace("list-", "");
+    var arrName = $(this).attr("id").replace("list-", "");
 
-      //update array on tasks object and save
-      tasks[arrName] = tempArr;
-      saveTasks();
+      //update array on appts object and save
+      appts[arrName] = tempArr;
+      saveAppts();
 
     console.log(tempArr);
    }
 });
 
 
-
-
 // add modal to enter information by date, set that item up for saving in local storage
 
-// add css that changes time block colour based on date/time of task compared to current time
+// add css that changes time block colour based on date/time of appt compared to current time
 
 // add "save" button
