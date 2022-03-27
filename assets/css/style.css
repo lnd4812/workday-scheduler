@@ -8,7 +8,7 @@ body {
     background: transparent;
     border: none;
     resize: none;
-    float: left;
+    
     color: #000000;
     border-left: 1px solid black;
     padding: 10px;
@@ -23,13 +23,12 @@ body {
   }
   
    #currentDay {
-       font-weight: bold;
+     font-weight: bold;
    }
    
   .container {
-    display: flex;
     justify-content: space-around;
-   }
+      }
 
   .description{
     white-space: pre-wrap;
@@ -38,14 +37,13 @@ body {
   .time-block{
     text-align: center;
     border-radius: 15px;
-    width: 100%;
+     
   }
   
   .row {
     white-space: pre-wrap;
     height: 80px;
     border-top: 1px solid white;
-    flex-wrap: wrap;
   }
   
   .hour {
