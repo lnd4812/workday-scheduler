@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" ref="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Work Day Scheduler</title>
   </head>
@@ -19,20 +20,15 @@
         <p id="currentDay" class="lead"></p>
     </header>
         
-    <main class="timeblock col-12 col-md-9 col-xl-6 mb-3 d-flex flex-column">
-        <div class="row justify-content-between">
-        <!--for time-->
-            <div class="hour col-3 col-md-2 col-xl-2 mb-1">
-           </div>
-           <!--for appointments  -->
-           <div class="description col=9 col-md-7 col-xl-4 mb-2">
-                <textarea  placeholder="enter appointment details">
-                </textarea>
-                    <button class="saveBtn" type="button">save</button>                        </div> 
-                </div>        
+    <main class="container">
+        <div class="row flex-row time-block">
+            <div class ="hour col-2">
+                <p></p>
             </div>
-        </main>
-           
+            <textarea class="description col-9 col-m-6 col-xl-3 mb-1" placeholder="enter info"></textarea>
+            <button class="col-1 btn saveBtn" type="submit">save</button>
+        </div>
+    </main>
         
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -43,4 +39,5 @@
     <script src="./assets/js/script.js"></script>
   
 </body>
+
 </html>
