@@ -21,11 +21,7 @@ body {
     border-radius: 0;
     border-bottom: 10px solid black;
   }
-  
-   #currentDay {
-     font-weight: bold;
-   }
-   
+        
   .container {
     justify-content: space-around;
       }
