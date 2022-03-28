@@ -12,9 +12,9 @@ $(document).ready(function() {
    update();
    setInterval(update, 1000);
 
+var hours = ["8:00", "9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];   
+// coding to set up schedule layout
 
-
-var hours = ["8:00", "9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];
 
 // when save button clicked, input to textarea (classname "description" )
 $(".description").on("click", function() {
@@ -28,7 +28,7 @@ for(i = 0; i < hours.length;) {
          time: apptTime,
          text: apptDetails
       });
-      
+
    localStorage.setItem("apptTime", apptTime, "apptDetails", apptDetails);
    i++   
 }
