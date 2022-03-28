@@ -33,7 +33,6 @@ body {
   .time-block{
     text-align: center;
     border-radius: 15px;
-     
   }
   
   .row {
@@ -46,7 +45,6 @@ body {
     background-color: #ffffff;
     color: #000000;
     border-top: 1px dashed #000000;
-       
   }
   
   .past {
@@ -72,6 +70,10 @@ body {
     color: white;
   }
   
+  .oi-lock-locked {
+    color: white;
+  }
+
   .saveBtn i:hover {
     font-size: 20px;
     transition: all .3s ease-in-out;
