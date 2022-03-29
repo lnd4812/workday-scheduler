@@ -15,24 +15,42 @@ $(document).ready(function() {
 var hours = ["8:00", "9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];   
 // coding to set up schedule layout
 
+jQuery.each(hours, function(index,value) {
+   console.log("index", index, "value", value);
+});
+
+$(document).ready(function() {
+   $("#container").on("click", ".saveBtn", function() {
+       var currentRow=$(this).closest(".hour");
+       var col1 = currentRow.find(".hour:eq(0)").text();
+       var col2 = currentRow.find(".hour:eq(1)").text();
+       var data = col1 + "\n" + col2;
+       alertl(data);  
+       
+  });
+
+});
+   
+
 
 // when save button clicked, input to textarea (classname "description" )
-$(".description").on("click", function() {
-var apptDetails = $(this).siblings(".description").val();
-var apptTime = $(this).parent().attr("id") 
-var appointment = [];
 
-// create array from values in hour (var apptTime) & description classes on click of saveBtn
-for(i = 0; i < hours.length;) {
-      appointment.push ({
-         time: apptTime,
-         text: apptDetails
-      });
 
-   localStorage.setItem("apptTime", apptTime, "apptDetails", apptDetails);
-   i++   
-}
-});
+// var apptDetails = $(this).siblings(".description").val();
+// var apptTime = $(this).parent().attr("id") 
+// var appointment = [];
+
+// // create array from values in hour (var apptTime) & description classes on click of saveBtn
+// for(i = 0; i < hours.length;) {
+//       appointment.push ({
+//          time: apptTime,
+//          text: apptDetails
+//       });
+
+//    localStorage.setItem("apptTime", apptTime, "apptDetails", apptDetails);
+//    i++   
+// }
+// });
 
    // create array of time block values to use for local storage options; hour (apptTime) and description (apptDetails) are children of row time-block.
   
@@ -40,10 +58,10 @@ for(i = 0; i < hours.length;) {
    //based on current time, determine if appointment is already past (red) or future(green)
    var currentHour = (date.format('HH:mm'));
       
-   //index each hour appointent slot
-   jQuery.each(hours, function(index,value) {
-      console.log("index", index, "value", value);
-   });
+   // //index each hour appointent slot
+   // jQuery.each(hours, function(index,value) {
+   //    console.log("index", index, "value", value);
+   // });
   
    // if hour < currenttoday, red; if hour is > today, green, else default
   for(var i = 0; i < hours.length;) {
