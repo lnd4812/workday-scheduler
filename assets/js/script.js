@@ -12,18 +12,7 @@ $(document).ready(function() {
    update();
    setInterval(update, 1000);
    
-       
-   var hours = ["8:00", "9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];   
-   // coding to set up schedule layout
-   
-   // jQuery.each(hours, function(index,value) {
-   // console.log("index", index, "value", value);
-   // });
-
-
    // on click of saved button for specific hour, save any text entered for that hour to local storage
-   // how do I get this to save something each time a new appointment is added? - ".each loop?"
-   
    $(document).ready(function() {
       const apptmts = JSON.parse(localStorage.apptmts || '[]');
       $(".saveBtn").on("click", function(event) {
@@ -32,53 +21,51 @@ $(document).ready(function() {
          var apptEl = $(this).prev().attr("id") 
          var apptDetails = $(this).prev().val() 
          var appointment = {
-            Time: apptTime,
+            time: apptTime,
             timeBlockEl: apptEl,
-            Details: apptDetails        
-         };   
+            details: apptDetails        
+         }   
 
+         // create array to enable storage of more than one item in Scheduler
          apptmts.push(appointment);
          localStorage.setItem("apptmts", JSON.stringify(apptmts));
-      }); 
+      });
 
+      // retrieve information from localStorage
       var information = JSON.parse(window.localStorage.getItem("apptmts"));
-      console.log(information);
-
+      
+      // enable any information stored to persist even if screen refreshed
       if (information) {
          for (var i = 0; i < information.length; i++) {
-            var timerow = information[i];
-            var timeblockElId = timerow.timeBlockEl;
-            var timeBlockHTMLEl = document.getElementById(timeblockElId);
-            timeBlockHTMLEl.innerText = timerow.Details;
-         }      
-      };
-   });
-   // enable any information stored to persist even if screen refreshed
-   
-   
-   //based on current time, determine if appointment is already past (red) or future(green)
-   var currentHour = (date.format('HH:mm'));
-      
-   // //index each hour appointent slot
-   // jQuery.each(hours, function(index,value) {
-   //    console.log("index", index, "value", value);
-   // });
-  
-   //if hour < currenttoday, red; if hour is > today, green, else default
-  for(var i = 8; i < hours.length+8;) {
-      $(".time-block").each(function() {
-         var hours = parseInt($(this).attr("id"))
-
-         if (hours[i] === currentHour) {
-            $(this).addClass("present");
-         } 
-         else if (hours[i] > currentHour) {  
-            $(this).addClass("future");// time slot takes on .future class
-         }
-         else {
-            $(this).addClass("past"); // time slot takes on ".past" class
+            var timeRow = information[i];
+            var timeBlockElId = timeRow.timeBlockEl;
+            var timeBlockHTMLEl = document.getElementById(timeBlockElId);
+            timeBlockHTMLEl.innerText = timeRow.details;
          }  
-      });
-      i++
-   }
-});
+      } 
+   });  
+      // if hour attached to each time block is earlier than current time (by hour), background is red, if later, background is green, otherwise grey
+         
+      // create an array of all hours in the schedule
+         var hours = ["08:00", "09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];              
+         
+         // get current time, in hours, when site is being viewed for comparison
+         var currentHour = parseInt(date.format('HH:00'));
+         console.log(currentHour)
+         
+         for (var i = 0; i < hours.length; ) {
+            if (parseInt(hours[i]) < currentHour) {
+               $("#timeblock-" + [i]).addClass("past");
+            }
+            else if (parseInt(hours) > currentHour) {
+               $("#timeblock-" + [i]).addClass("future");
+            }
+            else { 
+               $("#timeblock-" + [i]).addClass("present");
+                        }
+            console.log(parseInt(hours[i]));
+            i++
+         }
+             
+   
+}); // currentDay
