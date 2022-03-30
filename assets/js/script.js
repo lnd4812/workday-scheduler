@@ -20,30 +20,33 @@ $(document).ready(function() {
    // console.log("index", index, "value", value);
    // });
 
-   $(".saveBtn").on("click", function() {
-   var apptTime = $(this).prev().prev().find("p").html()// I want this to be the hour for the save-8 button
-   var apptDetails = $(this).prev().val() // want this to be the text tied to save-8 id need to stringify this text
-   var appointment = {
-      Time: apptTime,
-      Details: apptDetails
-   } 
-   console.log(appointment);
-   localStorage.setItem("appointment", JSON.stringify(appointment));
 
-});   
- 
+   // on click of saved button for specific hour, save any text entered for that hour to local storage
+   // how do I get this to save something each time a new appointment is added? - ".each loop?"
+   
+   $(document).ready(function() {
+      const apptmts = JSON.parse(localStorage.apptmts || '[]');
+      $(".saveBtn").on("click", function() {
+      event.preventDefault(); {
+         var apptTime = $(this).prev().prev().find("p").html()
+         var apptDetails = $(this).prev().val() 
+         var appointment = {
+            Time: apptTime,
+            Details: apptDetails
+         }
+      };    
+      apptmts.push(appointment);
+      localStorage.setItem("apptmts", JSON.stringify(apptmts));
 
-
-// //    localStorage.setItem("apptTime", apptTime, "apptDetails", apptDetails);
-// //    i++   
-// // }
-// // });
-
-//    // create array of time block values to use for local storage options; hour (apptTime) and description (apptDetails) are children of row time-block.
-  
-
-// //    //based on current time, determine if appointment is already past (red) or future(green)
-   var currentHour = (date.format('HH:mm'));
+      var information = JSON.parse(window.localStorage.getItem("apptmts"));
+      console.log(information);
+    }); 
+   });
+   // enable any information stored to persist even if screen refreshed
+   
+   
+   //    //based on current time, determine if appointment is already past (red) or future(green)
+   // var currentHour = (date.format('HH:mm'));
       
    // //index each hour appointent slot
    // jQuery.each(hours, function(index,value) {
@@ -51,20 +54,20 @@ $(document).ready(function() {
    // });
   
    // if hour < currenttoday, red; if hour is > today, green, else default
-  for(var i = 8; i < hours.length+8;) {
-      $(".time-block").each(function() {
-         var hours = parseInt($(this).attr("id"))
+//   for(var i = 8; i < hours.length+8;) {
+//       $(".time-block").each(function() {
+//          var hours = parseInt($(this).attr("id"))
 
-         if (hours[i] === currentHour) {
-            $(this).addClass("present");
-         } 
-         else if (hours[i] > currentHour) {  
-            $(this).addClass("future");// time slot takes on .future class
-         }
-         else {
-            $(this).addClass("past"); // time slot takes on ".past" class
-         }  
-      });
-      i++
-   }
+//          if (hours[i] === currentHour) {
+//             $(this).addClass("present");
+//          } 
+//          else if (hours[i] > currentHour) {  
+//             $(this).addClass("future");// time slot takes on .future class
+//          }
+//          else {
+//             $(this).addClass("past"); // time slot takes on ".past" class
+//          }  
+//       });
+//       i++
+//    }
 });
