@@ -26,48 +26,59 @@ $(document).ready(function() {
    
    $(document).ready(function() {
       const apptmts = JSON.parse(localStorage.apptmts || '[]');
-      $(".saveBtn").on("click", function() {
-      event.preventDefault(); {
+      $(".saveBtn").on("click", function(event) {
+         event.preventDefault(); 
          var apptTime = $(this).prev().prev().find("p").html()
+         var apptEl = $(this).prev().attr("id") 
          var apptDetails = $(this).prev().val() 
          var appointment = {
             Time: apptTime,
-            Details: apptDetails
-         }
-      };    
-      apptmts.push(appointment);
-      localStorage.setItem("apptmts", JSON.stringify(apptmts));
+            timeBlockEl: apptEl,
+            Details: apptDetails        
+         };   
+
+         apptmts.push(appointment);
+         localStorage.setItem("apptmts", JSON.stringify(apptmts));
+      }); 
 
       var information = JSON.parse(window.localStorage.getItem("apptmts"));
       console.log(information);
-    }); 
+
+      if (information) {
+         for (var i = 0; i < information.length; i++) {
+            var timerow = information[i];
+            var timeblockElId = timerow.timeBlockEl;
+            var timeBlockHTMLEl = document.getElementById(timeblockElId);
+            timeBlockHTMLEl.innerText = timerow.Details;
+         }      
+      };
    });
    // enable any information stored to persist even if screen refreshed
    
    
-   //    //based on current time, determine if appointment is already past (red) or future(green)
-   // var currentHour = (date.format('HH:mm'));
+   //based on current time, determine if appointment is already past (red) or future(green)
+   var currentHour = (date.format('HH:mm'));
       
    // //index each hour appointent slot
    // jQuery.each(hours, function(index,value) {
    //    console.log("index", index, "value", value);
    // });
   
-   // if hour < currenttoday, red; if hour is > today, green, else default
-//   for(var i = 8; i < hours.length+8;) {
-//       $(".time-block").each(function() {
-//          var hours = parseInt($(this).attr("id"))
+   //if hour < currenttoday, red; if hour is > today, green, else default
+  for(var i = 8; i < hours.length+8;) {
+      $(".time-block").each(function() {
+         var hours = parseInt($(this).attr("id"))
 
-//          if (hours[i] === currentHour) {
-//             $(this).addClass("present");
-//          } 
-//          else if (hours[i] > currentHour) {  
-//             $(this).addClass("future");// time slot takes on .future class
-//          }
-//          else {
-//             $(this).addClass("past"); // time slot takes on ".past" class
-//          }  
-//       });
-//       i++
-//    }
+         if (hours[i] === currentHour) {
+            $(this).addClass("present");
+         } 
+         else if (hours[i] > currentHour) {  
+            $(this).addClass("future");// time slot takes on .future class
+         }
+         else {
+            $(this).addClass("past"); // time slot takes on ".past" class
+         }  
+      });
+      i++
+   }
 });
