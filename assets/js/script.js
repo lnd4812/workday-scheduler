@@ -45,27 +45,46 @@ $(document).ready(function() {
       } 
    });  
       // if hour attached to each time block is earlier than current time (by hour), background is red, if later, background is green, otherwise grey
-         
+        var textDetails = JSON.parse(window.localStorage.getItem("apptEl")); 
+        console.log(textDetails);
+
       // create an array of all hours in the schedule
          var hours = ["08:00", "09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];              
-         
+         console.log(hours.length);
          // get current time, in hours, when site is being viewed for comparison
-         var currentHour = parseInt(date.format('HH:00'));
+         var currentHour = moment().hour()
          console.log(currentHour)
          
-         for (var i = 0; i < hours.length; ) {
-            if (parseInt(hours[i]) < currentHour) {
-               $("#timeblock-" + [i]).addClass("past");
-            }
-            else if (parseInt(hours) > currentHour) {
-               $("#timeblock-" + [i]).addClass("future");
-            }
-            else { 
-               $("#timeblock-" + [i]).addClass("present");
-                        }
-            console.log(parseInt(hours[i]));
-            i++
+         function timeBlockStatus() {
+            $(".description").each(function() {
+               console.log(this)
+               var timeBlockRow = parseInt($(this).attr("id"))
+               if (currentHour === timeBlockRow) {
+                  $(this).addClass("present")
+               }
+               else if (currentHour < timeBlockRow) {
+                  $(this).removeClass("past")
+               }
+               else (currentHour > timeBlockRow) ;{
+                  $(this).removeClass("future")
+               }
+            })
          }
+         timeBlockStatus();
+         // for (var i = 0; i < hours.length; i++ ) {
+         //    if (hours[i] < currentHour) {
+         //       $(textDetails).addClass("past");
+         //    }
+         //    else if (hours > currentHour) {
+         //       $(textDetails).addClass("future");
+         //    }
+         //    else { 
+         //       $(textDetails).addClass("present");
+         //                }
+         //    console.log(hours[i]);
+         // }
              
-   
+       
+
+
 }); // currentDay
