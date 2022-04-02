@@ -59,10 +59,10 @@ $(document).ready(function() {
          // change class based on current time vs. each timeblock's time
          $(document).ready(function() { 
             if (time < currentHour) {
-               $(".description").removeClass("present").removeClass("future").addClass("past");
+               $(".description").addClass("past");
          } else if
             (time > currentHour) {
-               $(".description").removeClass("past").removeClass("present").addClass("future");
+               $(".description").removeClass("past").addClass("future");
          } else
                $(".description").removeClass("past").removeClass("future").addClass("present");
          });
