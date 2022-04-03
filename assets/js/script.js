@@ -47,25 +47,29 @@ $(document).ready(function() {
          
    // if hour attached to each time block is earlier than current time (by hour), background is red, if later, background is green, otherwise grey
    // get current time, in hours, when site is being viewed for comparison
-   var currentHour = parseInt(moment().hour())
+   var currentHour = parseInt("10:00");
+   // parseInt(moment().hour())
       console.log(currentHour)
                   
       $("p").each(function() {
       console.log(this)
-         var apptTime = $(this).closest('p').html();
-         var time = parseInt(apptTime)
+         var time = parseInt($(this).closest('p').html());
          console.log(time)
+     
+      // change class based on current time vs. each timeblock's time
+      if (time === currentHour) {
+         $(".description").addClass("present");
          
-         // change class based on current time vs. each timeblock's time
-         $(document).ready(function() { 
-            if (time < currentHour) {
-               $(".description").addClass("past");
-         } else if
-            (time > currentHour) {
-               $(".description").removeClass("past").addClass("future");
-         } else
-               $(".description").removeClass("past").removeClass("future").addClass("present");
-         });
-      });  
+      } else if
+      (time > currentHour) {
+         $(".description").addClass("past");
+         console.log(true);
+      } else
+         $(".description").addClass("future");
+         console.log(false);
+      });
 
+           
+
+     
 }); // currentDay
