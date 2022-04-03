@@ -39,7 +39,7 @@ The CSS starter code includes classes meant to be added to the timeblock of the 
 
 ## License
 
-An MIT [License] has been included with this project.
+An MIT [License](LICENSE.md) has been included with this project.
 
 ## Credits and external Resources
 
