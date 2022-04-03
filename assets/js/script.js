@@ -48,27 +48,31 @@ $(document).ready(function() {
    // if hour attached to each time block is earlier than current time (by hour), background is red, if later, background is green, otherwise grey
    // get current time, in hours, when site is being viewed for comparison
    
-                  
-      $("p").each(function() {
-      console.log(this)
-         var time = parseInt($(this).closest('p').html());
+   $(document).ready(function() {   
+      $(".time").each(function() {
+      console.log(this) // check that correct 
+         var time = parseInt($(this).html());
          console.log(time)
-         var currentHour = parseInt(moment().format("HH:00"));
-                 
-         // parseInt(moment().hour())
-         console.log(currentHour)
-         // change class based on current time vs. each timeblock's time
-         
-         if (time < currentHour) {
-               $(".description").addClass("past");
-                        
-         } else if
-            (time > currentHour) {
-               $(".description").removeClass("past").addClass("future");
-                        
-         } else 
-               $(".description").removeClass("future").addClass("present");
-                
-      });
+         var currentHour = parseInt(moment().hour())
+                  console.log(currentHour)
 
+         var timeId = $(this).attr("id");
+         var descriptionId = "#timeblock-" + timeId;
+
+         // change class based on current time vs. each timeblock's time
+       
+         // do I need function here that responds to each change in "time"   
+         // function() ????  use an array
+        
+         if (time < currentHour) {
+            // textarea color changes to gray if hour has already gone by
+               $(descriptionId).addClass("past");
+         } else if
+            // textarea color is green if time is later than current hour
+            (time > currentHour) {
+               $(descriptionId).addClass("future");
+         } else // textarea is red if time matches current hour
+               $(descriptionId).addClass("present");
+      });
+   });
 }); // currentDay
