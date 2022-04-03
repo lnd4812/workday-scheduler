@@ -39,7 +39,7 @@ An MIT [License] has been included with this project.
 
 ## Credits and external Resources
 
-- A full description of Challenge 5's criteria is outlined here: [Module 3 Challenge Project Page](https://courses.bootcampspot.com/courses/1181/assignments/23403?module_item_id=461381).
+- A full description of Challenge 5's criteria is outlined here: [Module 5 Challenge Project Page](https://courses.bootcampspot.com/courses/1181/assignments/23403?module_item_id=461381).
 - Additional assistance was provided by the TA's and fellow learners during Office Hours, online via AskBCS and through one-on-one tutorial sessions.
 - various internet websites including [MDN Docs](https://developer.mozilla.org), [W3Schools](https://www.w3schools.com) and [Stack Overflow](https://stackoverflow.com).
 
