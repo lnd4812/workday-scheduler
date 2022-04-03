@@ -1,4 +1,4 @@
-// use Moment.js to display current date in a div, with help from Stackoverflow 
+// use Moment.js to display current date in a div (with help from Stackoverflow) 
 var currentTime = null;
 var date = null;
 
@@ -12,7 +12,7 @@ $(document).ready(function() {
    update();
    setInterval(update, 1000);
    
-   // on click of saved button for specific hour, save any text entered for that hour to local storage
+   // on click of saved button for specific hour, store any text entered for that hour to local storage
    $(document).ready(function() {
       const apptmts = JSON.parse(localStorage.apptmts || '[]');
       $(".saveBtn").on("click", function(event) {
@@ -26,15 +26,15 @@ $(document).ready(function() {
             details: apptDetails        
          }   
 
-         // create array to enable storage of more than one item in Scheduler
+         // create array to enable storage of more than one item in Scheduler and convert to string
          apptmts.push(appointment);
          localStorage.setItem("apptmts", JSON.stringify(apptmts));
       });
 
-      // retrieve information from localStorage
+      // retrieve array data from localStorage into variable "information"
       var information = JSON.parse(window.localStorage.getItem("apptmts"));
       
-      // enable any information stored to persist even if screen refreshed
+      // enable any information saved to localStorage to persist after browser opened / screen refreshed
       if (information) {
          for (var i = 0; i < information.length; i++) {
             var timeRow = information[i];
@@ -46,33 +46,26 @@ $(document).ready(function() {
    });  
          
    // if hour attached to each time block is earlier than current time (by hour), background is red, if later, background is green, otherwise grey
-   // get current time, in hours, when site is being viewed for comparison
-   
-   $(document).ready(function() {   
-      $(".time").each(function() {
-      console.log(this) // check that correct 
-         var time = parseInt($(this).html());
-         console.log(time)
-         var currentHour = parseInt(moment().hour())
-                  console.log(currentHour)
+   $(".time").each(function() {
+      var time = parseInt($(this).html());
+            
+      // get current time, in hours, for comparison relative to time when webpage is being viewed
+      var currentHour = parseInt(moment().hour());
+         
+      // to more easily enable change of class to associated textarea
+      var timeId = $(this).attr("id");
+      var descriptionId = "#timeblock-" + timeId;
 
-         var timeId = $(this).attr("id");
-         var descriptionId = "#timeblock-" + timeId;
+      // change class based on current time vs. each timeblock's time
+      if (time < currentHour) {
+         // textarea color shows grey if hour has already gone by
+         $(descriptionId).addClass("past");
+      } else if
+         // textarea color is green if time is later than current hour
+         (time > currentHour) {
+         $(descriptionId).addClass("future");
+      } else // current hour/ textarea is red
+         $(descriptionId).addClass("present");
+   });// time.each(function)
 
-         // change class based on current time vs. each timeblock's time
-       
-         // do I need function here that responds to each change in "time"   
-         // function() ????  use an array
-        
-         if (time < currentHour) {
-            // textarea color changes to gray if hour has already gone by
-               $(descriptionId).addClass("past");
-         } else if
-            // textarea color is green if time is later than current hour
-            (time > currentHour) {
-               $(descriptionId).addClass("future");
-         } else // textarea is red if time matches current hour
-               $(descriptionId).addClass("present");
-      });
-   });
 }); // currentDay

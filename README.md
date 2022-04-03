@@ -8,7 +8,7 @@ The following animation demonstrates the application functionality:
 
 ## Requirements
 
-Moment.js must also be incorporated into the code to reflect current time and enable the past/present/future comparison.
+Moment.js must also be incorporated into the code and is used to reflect current time and enable the past/present/future comparison.
 
 ## Built With
 
@@ -25,13 +25,17 @@ The repository has been stored on [Github](https://github.com/lnd4812/workday-sc
 
 The main design uses starter HTML and CSS code for the layout of the webpage, while the script.js must be created from scratch.
 
-Time blocks are then created for between 8 and 10 hours comprising a fairly standard work day; the most convenient way to establish this set up was by hardcoding each time block in HTML and assignment specific classes and/or id's, in addition to the ones specified in the starter code, for integration with the javascript file.
+Time blocks are established for between 8 and 10 hours to represent fairly standard working hours; the most convenient way to create such a layout was by hardcoding each time block in HTML and assigning specific classes and/or id's, in addition to the ones specified in the starter code, for integration with the javascript file.
 
-The current date and time are added to the header using Moment.JS.  While the hour and minute fields of the function update automatically, the seconds do not without refreshing the browers, so a function using SetInterval was added to enable a progressive section function.
+The current date and time are added to the header using Moment.JS.  While the hour and minute fields of the function update automatically, the seconds do not progress without refreshing the browers, so a function using SetInterval was added to enable visible passage of the seconds.
 
-An event handler was added vian an **on("click")** function that saves any information input into any timeblock text area in LocalStorage in an array format via the localStorage setItem function and enabled to persist in those text areas by incorporating the the localStorage getItem function.
+An event handler was added via an **on("click")** function that saves any information input into any timeblock text area in LocalStorage in an array format via the localStorage **setItem** function and enabled to persist in those text areas by incorporating the the **localStorage getItem** function.
 
-The CSS starter code includes classes meant to be added to the timeblock of the hour associated with each time block if it is in the past (red), in the future (green) or current (grey) to the current hour indicated by the Moment.js function, as illustrated in the animation link above.
+![image showing data saved to localStorage](assets/images/local-storage-display.jpg)
+
+The CSS starter code includes classes meant to be added to the timeblock of the hour associated with each time block if it is in the past (grey), in the future (green) or current (red) to the current hour indicated by the Moment.js function, as illustrated in the animation link above.
+
+![screenshot of uploaded webpage illustrating current time and time relative to it based on colours of each text area container](assets/images/workday-scheduler%20screen%20shot%20.png).
 
 ## License
 
