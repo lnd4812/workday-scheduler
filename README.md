@@ -4,7 +4,7 @@ The purpose of this project is to use Jquery and Jquery UI functions along with 
 
 The following animation demonstrates the application functionality:
 
-![Work Day Scheduler app with color-coded time slots shows a new event being typed in the 5PM slot.](./Assets/05-third-party-apis-homework-demo.gif)
+![Work Day Scheduler app with color-coded time slots shows a new event being typed in the 5PM slot.](assets/images/05-third-party-apis-homework-demo.gif).
 
 ## Requirements
 
@@ -43,7 +43,7 @@ An MIT [License](LICENSE.md) has been included with this project.
 
 ## Credits and external Resources
 
-- A full description of Challenge 5's criteria is outlined here: [Module 5 Challenge Project Page](https://courses.bootcampspot.com/courses/1181/assignments/23403?module_item_id=461381).
+- A full description of Challenge 5's criteria is outlined here: [Module 5 Challenge Project Page](https://courses.bootcampspot.com/courses/1181/assignments/23408?module_item_id=461381).
 - Additional assistance was provided by the TA's and fellow learners during Office Hours, online via AskBCS and through one-on-one tutorial sessions.
 - various internet websites including [MDN Docs](https://developer.mozilla.org), [W3Schools](https://www.w3schools.com) and [Stack Overflow](https://stackoverflow.com).
 
