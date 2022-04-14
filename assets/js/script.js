@@ -39,7 +39,7 @@ $(document).ready(function() {
          for (var i = 0; i < information.length; i++) {
             var timeRow = information[i];
             var timeBlockElId = timeRow.timeBlockEl;
-            var timeBlockHTMLEl = document.getElementById("timeBlockElId");
+            var timeBlockHTMLEl = document.getElementById(timeBlockElId);
             timeBlockHTMLEl.innerText = timeRow.details;
          }  
       } 
